@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moabi Studio — générateur de visuels pour les réseaux sociaux</title>
+<meta name="description" content="Moabi Studio, générateur de visuels pour les réseaux sociaux : modèles, kit de marque, formats publication, story, bannière et miniature, déclinaison automatique et export PNG.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23ff5a36'/%3E%3Crect x='8' y='8' width='16' height='16' rx='3' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#1a1a1a;--mute:#737373;--line:#e7e5e4;--bg:#f5f5f4;--sf:#fff;--acc:#ff5a36}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 13.5px/1.45 'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;height:100vh;display:flex;flex-direction:column}
+button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}
+header{height:56px;flex:none;background:var(--sf);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 18px}
+.logo{display:flex;align-items:center;gap:8px;font:800 17px 'Bricolage Grotesque'}
+.logo i{width:26px;height:26px;border-radius:7px;background:var(--acc);display:grid;place-items:center}
+.logo i::after{content:'';width:11px;height:11px;border:2.5px solid #fff;border-radius:3px}
+.fmts{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:3px;margin-left:14px}
+.fmts button{border:0;background:none;padding:6px 11px;border-radius:8px;font-weight:550;color:var(--mute);display:flex;align-items:center;gap:6px}
+.fmts button i{display:inline-block;border:1.6px solid currentColor;border-radius:2px}
+.fmts button.on{background:var(--sf);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.sp{flex:1}
+.btn{border:1px solid var(--line);background:var(--sf);border-radius:9px;padding:8px 13px;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.btn.p{background:var(--ink);border-color:var(--ink);color:#fff}
+.app{flex:1;display:grid;grid-template-columns:250px 1fr 300px;min-height:0}
+.lib{background:var(--sf);border-right:1px solid var(--line);padding:14px;overflow:auto}
+.lib h4,.ins h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:600;margin:4px 0 10px}
+.tpls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tpls button{border:2px solid transparent;border-radius:10px;padding:0;overflow:hidden;background:var(--bg);aspect-ratio:1;position:relative}
+.tpls button.on{border-color:var(--acc)}
+.tpls canvas{width:100%;height:100%;display:block}
+.tpls span{position:absolute;left:5px;bottom:5px;background:rgba(255,255,255,.92);border-radius:5px;padding:1px 6px;font-size:10.5px;font-weight:600}
+.stage{display:grid;place-items:center;padding:28px;min-width:0;min-height:0;position:relative;background:radial-gradient(circle at 1px 1px,#dcdad7 1px,transparent 0) 0 0/18px 18px}
+#cv{box-shadow:0 20px 50px -20px rgba(0,0,0,.35);border-radius:4px;max-width:100%;max-height:100%;background:#fff}
+.dims{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:var(--sf);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--mute);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.ins{background:var(--sf);border-left:1px solid var(--line);padding:16px;overflow:auto}
+.grp{margin-bottom:18px}
+.f{margin-bottom:10px}.f label{display:block;font-size:12px;font-weight:600;margin-bottom:4px}
+.f input,.f textarea,.f select{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 9px;outline:0;background:var(--sf)}
+.f textarea{resize:vertical;min-height:58px}
+.f input:focus,.f textarea:focus{border-color:var(--ink)}
+.pal{display:flex;gap:6px;flex-wrap:wrap}
+.pal button{width:30px;height:30px;border-radius:8px;border:2px solid var(--sf);box-shadow:0 0 0 1px var(--line);display:flex;overflow:hidden;padding:0}
+.pal button i{flex:1}
+.pal button.on{box-shadow:0 0 0 2px var(--ink)}
+.seg{display:flex;background:var(--bg);border-radius:9px;padding:3px}
+.seg button{flex:1;border:0;background:none;padding:6px;border-radius:7px;font-weight:550;color:var(--mute);font-size:12.5px}
+.seg button.on{background:var(--sf);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.up{border:1.5px dashed var(--line);border-radius:10px;padding:10px;text-align:center;color:var(--mute);cursor:pointer;font-size:12.5px;display:block}
+.up:hover{border-color:var(--ink);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ovl{position:fixed;inset:0;background:rgba(20,20,20,.5);display:none;place-items:center;z-index:30;padding:16px}
+.ovl.on{display:grid}
+.box{background:var(--sf);border-radius:16px;padding:20px;width:760px;max-width:100%;max-height:92vh;overflow:auto}
+.box h3{font:700 20px 'Bricolage Grotesque';margin-bottom:4px}.box>p{color:var(--mute);margin-bottom:14px}
+.all{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.all figure{display:grid;gap:6px;justify-items:center}
+.all canvas{box-shadow:0 6px 18px -8px rgba(0,0,0,.35);border-radius:3px}
+.all figcaption{font-size:11.5px;color:var(--mute);text-align:center}
+.toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:9px 14px;border-radius:10px;opacity:0;transition:.3s;font-weight:600;z-index:40}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:1000px){body{height:auto}.app{grid-template-columns:1fr}.lib{order:2;border:0}.tpls{grid-template-columns:repeat(6,1fr)}.ins{order:3;border:0}.stage{order:1;height:62vh}.fmts span{display:none}.hm{display:none}}
+@media (max-width:600px){.tpls{grid-template-columns:repeat(3,1fr)}header{padding:0 10px;gap:8px}.fmts{margin-left:0}.fmts button{padding:6px 8px}.logo b{display:none}}
+</style>
+</head>
+<body>
+<header><span class="logo"><i></i><b>Moabi Studio</b></span>
+<div class="fmts" id="fmts"></div><span class="sp"></span><button class="btn hm" id="allb">Décliner tous les formats</button><button class="btn p" id="dl"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5v8m-3-3 3 3 3-3M2 12.5h10" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>Exporter en PNG</button></header>
+<div class="app">
+<aside class="lib"><h4>Modèles</h4><div class="tpls" id="tpls"></div><h4 style="margin-top:18px">Exemples de contenu</h4><div style="display:grid;gap:6px" id="ex"></div></aside>
+<div class="stage"><canvas id="cv"></canvas><span class="dims" id="dims"></span></div>
+<aside class="ins">
+<div class="grp"><h4>Textes</h4>
+<div class="f"><label for="t1">Surtitre</label><input id="t1"></div>
+<div class="f"><label for="t2">Titre</label><textarea id="t2"></textarea></div>
+<div class="f"><label for="t3">Texte secondaire</label><input id="t3"></div>
+<div class="row2"><div class="f"><label for="t4">Bouton</label><input id="t4"></div><div class="f"><label for="t5">Mention</label><input id="t5"></div></div></div>
+<div class="grp"><h4>Kit de marque</h4>
+<div class="f"><label>Palette</label><div class="pal" id="pal"></div></div>
+<div class="f"><label>Typographie des titres</label><div class="seg" id="font"><button data-f="Bricolage Grotesque" class="on">Grotesque</button><button data-f="Fraunces">Serif</button></div></div>
+<div class="row2"><div class="f"><label for="bn">Nom de la marque</label><input id="bn"></div><div class="f"><label for="sz">Taille du titre</label><input type="range" id="sz" min="70" max="130" value="100"></div></div></div>
+<div class="grp"><h4>Image</h4><label class="up"><input type="file" id="img" accept="image/*" hidden>Ajouter une photo (glisser ou cliquer)</label>
+<div class="f" style="margin-top:10px"><label>Motif de fond</label><div class="seg" id="mot"><button data-m="ndop" class="on">Ndop</button><button data-m="dots">Points</button><button data-m="waves">Vagues</button><button data-m="none">Aucun</button></div></div></div>
+</aside></div>
+<div class="ovl" id="ovl"><div class="box"><h3>Tous les formats</h3><p>Le même contenu, recomposé automatiquement pour chaque réseau.</p><div class="all" id="all"></div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><button class="btn" id="cls">Fermer</button><button class="btn p" id="dlall">Télécharger les 4 images</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const FMT={post:[1080,1080,'Publication','1:1'],story:[1080,1920,'Story','9:16'],yt:[1280,720,'Miniature','16:9'],li:[1584,396,'Bannière','4:1']};
+const PAL=[['#ff5a36','#1a1a1a','#fff4ec','#ffd166'],['#0b3d2e','#c6f36b','#f2f4f1','#0e7a55'],['#2b2d7a','#f7c548','#f4f3fb','#e84f6b'],['#7a1f2b','#f2c9a0','#fbf3ea','#d9822b'],['#111111','#ffffff','#f0f0f0','#ff3b30'],['#0e5e7a','#ffb703','#eef6f8','#fb8500']];
+const TPL=['promo','citation','evenement','recrutement','produit','chiffre'];
+const NAMES={promo:'Promotion',citation:'Citation',evenement:'Événement',recrutement:'Recrutement',produit:'Produit',chiffre:'Chiffre clé'};
+const EX={promo:['VENTE FLASH · 72 H','-30 % sur tout le wax','Livraison offerte à Douala et Yaoundé','Commander','Jusqu\'au 30 novembre'],citation:['Mot du fondateur','On ne construit rien de grand sans la confiance de ses clients.','Hervé Ngando, fondateur','','Moabi Wax · depuis 2014'],evenement:['DOUALA · SAMEDI 14 DÉC.','Nuit du design africain','Conférences, expositions et marché des créateurs','Réserver','Institut français, 18 h'],recrutement:['ON RECRUTE','Développeur ou développeuse front-end','CDI · Douala · télétravail partiel','Postuler','careers.moabi.cm'],produit:['NOUVEAUTÉ','Le sac Bamiléké en raphia','Tissé à la main à Bafoussam','Découvrir','45 000 FCFA'],chiffre:['BILAN 2026','12 400','clients livrés cette année, merci !','','Moabi Wax']};
+let S={tpl:'promo',fmt:'post',pal:0,font:'Bricolage Grotesque',mot:'ndop',size:100,brand:'Moabi Wax',img:null,t:[...EX.promo]};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._);t._=setTimeout(()=>t.classList.remove('on'),2200)}
+// rendu sur canvas : un seul moteur pour l'aperçu, les vignettes et l'export
+function wrapLines(g,text,maxW){const out=[];String(text).split('\n').forEach(p=>{let line='';p.split(' ').forEach(w=>{const t=line?line+' '+w:w;if(g.measureText(t).width>maxW&&line){out.push(line);line=w}else line=t});out.push(line)});return out}
+function fitText(g,text,font,weight,maxW,maxH,start,lh=1.05){let s=start;for(;s>12;s*=.94){g.font=`${weight} ${s}px "${font}"`;const L=wrapLines(g,text,maxW);if(L.length*s*lh<=maxH&&L.every(l=>g.measureText(l).width<=maxW))return [s,L]}g.font=`${weight} ${s}px "${font}"`;return [s,wrapLines(g,text,maxW)]}
+function motif(g,W,H,c,kind,alpha=.13){g.save();g.globalAlpha=alpha;g.strokeStyle=c;g.fillStyle=c;const u=Math.min(W,H)/12;
+ if(kind==='ndop'){g.lineWidth=u*.08;for(let y=-u;y<H+u;y+=u*1.6)for(let x=-u;x<W+u;x+=u*1.6){const o=(Math.round(y/(u*1.6))%2)*u*.8;g.beginPath();g.moveTo(x+o,y-u*.5);g.lineTo(x+o+u*.5,y);g.lineTo(x+o,y+u*.5);g.lineTo(x+o-u*.5,y);g.closePath();g.stroke();g.beginPath();g.arc(x+o,y,u*.1,0,7);g.fill()}}
+ else if(kind==='dots'){for(let y=u*.5;y<H;y+=u*.7)for(let x=u*.5;x<W;x+=u*.7){g.beginPath();g.arc(x,y,u*.09,0,7);g.fill()}}
+ else if(kind==='waves'){g.lineWidth=u*.07;for(let y=0;y<H+u;y+=u*.6){g.beginPath();for(let x=0;x<=W;x+=8)g.lineTo(x,y+Math.sin(x/u*1.4)*u*.18);g.stroke()}}g.restore()}
+function pill(g,x,y,text,bg,fg,s){g.font=`600 ${s}px Inter`;const w=g.measureText(text).width+s*1.6,h=s*2.2;g.fillStyle=bg;g.beginPath();g.roundRect(x,y,w,h,h/2);g.fill();g.fillStyle=fg;g.textBaseline='middle';g.fillText(text,x+s*.8,y+h/2+1);g.textBaseline='alphabetic';return [w,h]}
+function logo(g,x,y,s,c,name){g.fillStyle=c;g.beginPath();g.roundRect(x,y,s,s,s*.28);g.fill();g.strokeStyle=c===PAL[S.pal][1]?PAL[S.pal][0]:'#fff';g.lineWidth=s*.12;g.beginPath();g.moveTo(x+s*.25,y+s*.7);g.lineTo(x+s*.25,y+s*.3);g.lineTo(x+s*.5,y+s*.55);g.lineTo(x+s*.75,y+s*.3);g.lineTo(x+s*.75,y+s*.7);g.stroke();g.font=`700 ${s*.5}px "${S.font}"`;g.fillStyle=c;g.textBaseline='middle';g.fillText(name,x+s*1.25,y+s*.53);g.textBaseline='alphabetic'}
+function photo(g,x,y,w,h,r){g.save();g.beginPath();g.roundRect(x,y,w,h,r);g.clip();if(S.img){const k=Math.max(w/S.img.width,h/S.img.height);g.drawImage(S.img,x+(w-S.img.width*k)/2,y+(h-S.img.height*k)/2,S.img.width*k,S.img.height*k)}else{const [a,b,c,d]=PAL[S.pal];const gr=g.createLinearGradient(x,y,x+w,y+h);gr.addColorStop(0,d);gr.addColorStop(1,a);g.fillStyle=gr;g.fillRect(x,y,w,h);motif(g,w+x,h+y,c,'ndop',.25);
+  // illustration par défaut : motif wax en cercles concentriques
+  const R=Math.max(w,h)/5;for(let j=-1;j*R*1.5<h+R;j++)for(let i=-1;i*R*1.7<w+R;i++){const cx=x+i*R*1.7+(j%2?R*.85:0),cy=y+j*R*1.5;[[1,c],[.72,a],[.5,b],[.28,c]].forEach(([k,col])=>{g.fillStyle=col;g.beginPath();g.arc(cx,cy,R*k*.78,0,7);g.fill()})}}g.restore()}
+function draw(cv,o){const [W,H]=FMT[o.fmt];cv.width=W;cv.height=H;const g=cv.getContext('2d');const [A,B,C,D]=PAL[o.pal];const t=o.t,f=o.font,k=o.size/100;const m=Math.min(W,H)*.08,wide=W/H>1.6,tall=H/W>1.4;const u=Math.min(W,H);
+ g.fillStyle=C;g.fillRect(0,0,W,H);
+ const head=(x,y,w,h,col,start)=>{const [s,L]=fitText(g,t[1],f,f==='Fraunces'?600:800,w,h,start*k);g.fillStyle=col;L.forEach((l,i)=>g.fillText(l,x,y+s*(i+.85)*1.05));return y+L.length*s*1.05};
+ if(o.tpl==='promo'){g.fillStyle=A;g.fillRect(0,0,W,H);if(o.mot!=='none')motif(g,W,H,C,o.mot,.12);
+  if(wide){const pw=H*1.05;photo(g,W-pw-m*.6,m*.6,pw,H-m*1.2,u*.04);logo(g,m,m*.8,u*.09,C,o.brand);pill(g,m,H*.32,t[0],D,B,u*.04);const e=head(m,H*.46,W-pw-m*2.6,H*.36,C,u*.2);g.font=`500 ${u*.045}px Inter`;g.fillStyle=C;g.globalAlpha=.85;g.fillText(t[2],m,Math.min(H-m*.6,e+u*.09));g.globalAlpha=1}
+  else{logo(g,m,m,u*.07,C,o.brand);const top=tall?H*.56:H*.66;photo(g,m,top,W-m*2,H-top-m*(tall?2.6:1),u*.04);const y0=tall?H*.13:H*.17;pill(g,m,y0,t[0],D,B,u*.032);const e=head(m,y0+u*.11,W-m*2,top-y0-u*.11-u*.16,C,u*.16);g.font=`500 ${u*.036}px Inter`;g.fillStyle=C;g.globalAlpha=.9;wrapLines(g,t[2],W-m*2).forEach((l,i)=>g.fillText(l,m,e+u*.07+i*u*.048));g.globalAlpha=1;
+   if(t[3]&&tall)pill(g,m,H-m*1.6,t[3]+'  →',C,A,u*.036);if(t[4]){g.font=`500 ${u*.028}px Inter`;g.fillStyle=C;g.globalAlpha=.75;g.textAlign='right';g.fillText(t[4],W-m,m+u*.05);g.textAlign='left';g.globalAlpha=1}}}
+ else if(o.tpl==='citation'){g.fillStyle=C;g.fillRect(0,0,W,H);if(o.mot!=='none')motif(g,W,H,A,o.mot,.07);g.fillStyle=A;g.font=`600 ${u*.42}px Fraunces`;g.globalAlpha=.9;g.fillText('“',m*.7,m+u*.3);g.globalAlpha=1;
+  const x=wide?W*.2:m,w=wide?W*.6:W-m*2;const [s,L]=fitText(g,t[1],'Fraunces','500 italic',w,wide?H*.48:H*.42,u*.11*k,1.2);g.fillStyle=B;g.font=`italic 500 ${s}px Fraunces`;const y0=wide?H*.3:tall?H*.32:H*.3;L.forEach((l,i)=>g.fillText(l,x,y0+s*(i+.9)*1.2));
+  const ey=y0+L.length*s*1.2+u*.08;g.fillStyle=A;g.fillRect(x,ey,u*.08,u*.008);g.font=`600 ${u*.035}px Inter`;g.fillStyle=B;g.fillText(t[2],x+u*.11,ey+u*.012);logo(g,x,H-m-u*.06,u*.06,A,o.brand)}
+ else if(o.tpl==='evenement'){g.fillStyle=B;g.fillRect(0,0,W,H);if(o.mot!=='none')motif(g,W,H,D,o.mot,.1);g.fillStyle=A;const r=wide?u*.55:u*.2,cx=wide?W-W*.12:W-m-r,cy=wide?H*.5:m*1.2+r;g.beginPath();g.arc(cx,cy,r,0,7);g.fill();g.fillStyle=D;g.beginPath();g.arc(cx-r*.75,cy+r*.6,r*.34,0,7);g.fill();
+  const w=wide?W*.62:W-m*2;g.font=`700 ${u*.036}px Inter`;g.fillStyle=D;g.fillText(t[0],m,wide?H*.28:H*(tall?.42:.5));const e=head(m,(wide?H*.33:H*(tall?.45:.53)),w,wide?H*.4:H*(tall?.28:.22),C,u*.15);g.font=`400 ${u*.036}px Inter`;g.fillStyle=C;g.globalAlpha=.8;wrapLines(g,t[2],w).forEach((l,i)=>g.fillText(l,m,e+u*.07+i*u*.05));g.globalAlpha=1;
+  if(!wide&&t[3])pill(g,m,H-m-u*.08,t[3]+'  →',A,'#fff',u*.034);if(t[4]){g.font=`600 ${u*.03}px Inter`;g.fillStyle=C;g.globalAlpha=.7;g.fillText(t[4],wide?m:m+(t[3]?u*.3:0)+u*.02,wide?H-m*.7:H-m-u*.027);g.globalAlpha=1}logo(g,m,m*.8,u*.06,C,o.brand)}
+ else if(o.tpl==='recrutement'){g.fillStyle=D;g.fillRect(0,0,W,H);if(o.mot!=='none')motif(g,W,H,B,o.mot,.08);const bx=wide?W*.04:m*.6,by=wide?H*.1:m*.6;g.fillStyle=C;g.beginPath();g.roundRect(bx,by,W-bx*2,H-by*2,u*.04);g.fill();
+  const x=bx+m*.8,w=W-bx*2-m*1.6;g.font=`800 ${u*(wide?.12:.1)}px "${f}"`;g.fillStyle=A;g.fillText(t[0],x,by+(wide?H*.36:m+u*.16));const e=head(x,by+(wide?H*.42:m+u*.22),wide?w*.62:w,wide?H*.36:H*.3,B,u*.09);g.font=`500 ${u*.036}px Inter`;g.fillStyle=B;g.globalAlpha=.75;g.fillText(t[2],x,e+u*.07);g.globalAlpha=1;
+  if(t[3])pill(g,wide?W-bx-m*.8-u*.32:x,wide?H*.5-u*.04:H-by-m*.8-u*.08,t[3]+'  →',A,'#fff',u*.034);if(t[4]){g.font=`500 ${u*.03}px Inter`;g.fillStyle=B;g.globalAlpha=.6;g.textAlign='right';g.fillText(t[4],W-bx-m*.8,H-by-m*.8);g.textAlign='left';g.globalAlpha=1}if(!wide)logo(g,x,H-by-m*.8-u*.2,u*.055,B,o.brand)}
+ else if(o.tpl==='produit'){g.fillStyle=C;g.fillRect(0,0,W,H);if(wide){photo(g,0,0,W*.42,H,0);const x=W*.46;g.font=`700 ${u*.06}px Inter`;g.fillStyle=A;g.fillText(t[0],x,H*.3);const e=head(x,H*.36,W*.5,H*.34,B,u*.15);g.font=`500 ${u*.06}px Inter`;g.fillStyle=B;g.fillText(t[4],x,Math.min(H*.88,e+u*.12))}
+  else{const ph=tall?H*.55:H*.46;photo(g,0,0,W,ph,0);g.font=`700 ${u*.03}px Inter`;g.fillStyle=A;g.fillText(t[0],m,ph+m*.9);const e=head(m,ph+m*1.05,W-m*2,H-ph-m*3.4,B,u*.11);g.font=`400 ${u*.034}px Inter`;g.fillStyle=B;g.globalAlpha=.7;g.fillText(t[2],m,e+u*.06);g.globalAlpha=1;
+   g.font=`800 ${u*.06}px "${f}"`;g.fillStyle=B;g.fillText(t[4],m,H-m*.9);if(t[3])pill(g,W-m-u*.27,H-m*.9-u*.065,t[3]+' →',A,'#fff',u*.032);logo(g,m,m*.7,u*.055,'#fff',o.brand)}}
+ else if(o.tpl==='chiffre'){g.fillStyle=B;g.fillRect(0,0,W,H);if(o.mot!=='none')motif(g,W,H,A,o.mot,.12);g.font=`700 ${u*.035}px Inter`;g.fillStyle=D;g.fillText(t[0],m,wide?H*.3:H*.3);
+  const [s]=fitText(g,t[1],f,800,wide?W*.5:W-m*2,wide?H*.5:H*.3,u*.4*k);g.font=`800 ${s}px "${f}"`;g.fillStyle=A;g.fillText(t[1],m,(wide?H*.3:H*.3)+s*.95);const tw=g.measureText(t[1]).width;
+  g.font=`500 ${u*.045}px Inter`;g.fillStyle=C;if(wide)wrapLines(g,t[2],W-tw-m*3).forEach((l,i)=>g.fillText(l,m*2+tw,H*.52+i*u*.06));else wrapLines(g,t[2],W-m*2).forEach((l,i)=>g.fillText(l,m,H*.3+s*1.25+i*u*.06));logo(g,m,H-m-u*.06,u*.06,C,o.brand)}
+}
+const cv=$('#cv');let fontsReady=false;
+function render(){draw(cv,S);const [W,H]=FMT[S.fmt];const st=$('.stage').getBoundingClientRect();const k=Math.min((st.width-56)/W,(st.height-70)/H,1);cv.style.width=W*k+'px';cv.style.height=H*k+'px';$('#dims').textContent=`${FMT[S.fmt][2]} · ${W} × ${H} px`}
+function thumbs(){$('#tpls').innerHTML=TPL.map(t=>`<button data-t="${t}" class="${t===S.tpl?'on':''}"><canvas></canvas><span>${NAMES[t]}</span></button>`).join('');$$('#tpls button').forEach(b=>{const c=b.querySelector('canvas');draw(c,{...S,tpl:b.dataset.t,fmt:'post',t:EX[b.dataset.t]})})}
+function sync(){['t1','t2','t3','t4','t5'].forEach((id,i)=>$('#'+id).value=S.t[i]);$('#bn').value=S.brand}
+$('#fmts').innerHTML=Object.entries(FMT).map(([k,[w,h,n,r]])=>`<button data-f="${k}" class="${k===S.fmt?'on':''}"><i style="width:${w>h?14:h>w*1.5?8:11}px;height:${h>w?14:w>h*2?5:w>h?9:11}px"></i><span>${n}</span></button>`).join('');
+$('#fmts').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.fmt=b.dataset.f;$$('#fmts button').forEach(x=>x.classList.toggle('on',x===b));render()};
+$('#tpls').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.tpl=b.dataset.t;S.t=[...EX[S.tpl]];sync();$$('#tpls button').forEach(x=>x.classList.toggle('on',x===b));render()};
+$('#ex').innerHTML=[['Wax en promotion','promo'],['Salon du design','evenement'],['Offre d\'emploi','recrutement']].map(([n,t])=>`<button class="btn" data-x="${t}" style="justify-content:flex-start">${n}</button>`).join('');
+$('#ex').onclick=e=>{const b=e.target.closest('[data-x]');if(b)$(`#tpls [data-t="${b.dataset.x}"]`).click()};
+['t1','t2','t3','t4','t5'].forEach((id,i)=>$('#'+id).oninput=e=>{S.t[i]=e.target.value;render()});
+$('#bn').oninput=e=>{S.brand=e.target.value;render()};$('#sz').oninput=e=>{S.size=+e.target.value;render()};
+$('#pal').innerHTML=PAL.map((p,i)=>`<button data-p="${i}" class="${i===S.pal?'on':''}" aria-label="Palette ${i+1}">${p.slice(0,3).map(c=>`<i style="background:${c}"></i>`).join('')}</button>`).join('');
+$('#pal').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.pal=+b.dataset.p;$$('#pal button').forEach(x=>x.classList.toggle('on',x===b));render();thumbs()};
+$('#font').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.font=b.dataset.f;$$('#font button').forEach(x=>x.classList.toggle('on',x===b));render();thumbs()};
+$('#mot').onclick=e=>{const b=e.target.closest('button');if(!b)return;S.mot=b.dataset.m;$$('#mot button').forEach(x=>x.classList.toggle('on',x===b));render();thumbs()};
+function loadImg(f){const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{S.img=i;render();thumbs();toast('Photo ajoutée')};i.src=r.result};r.readAsDataURL(f)}
+$('#img').onchange=e=>e.target.files[0]&&loadImg(e.target.files[0]);
+document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image'))loadImg(f)});
+const slug=()=>`${S.tpl}-${FMT[S.fmt][2].toLowerCase()}-${FMT[S.fmt][0]}x${FMT[S.fmt][1]}.png`;
+function save(c,name){const a=document.createElement('a');a.download=name;a.href=c.toDataURL('image/png');a.click()}
+$('#dl').onclick=()=>{save(cv,slug());toast('Image exportée en '+FMT[S.fmt][0]+' × '+FMT[S.fmt][1])};
+function openAll(){$('#all').innerHTML=Object.keys(FMT).map(k=>`<figure><canvas data-k="${k}"></canvas><figcaption>${FMT[k][2]}<br>${FMT[k][0]} × ${FMT[k][1]}</figcaption></figure>`).join('');$$('#all canvas').forEach(c=>{draw(c,{...S,fmt:c.dataset.k});const [W,H]=FMT[c.dataset.k];const k=Math.min(300/H,330/W)*(c.dataset.k==='li'?1.3:1);c.style.width=W*k+'px';c.style.height=H*k+'px'});$('#ovl').classList.add('on')}
+$('#allb').onclick=openAll;$('#cls').onclick=()=>$('#ovl').classList.remove('on');$('#ovl').onclick=e=>{if(e.target.id==='ovl')$('#ovl').classList.remove('on')};
+$('#dlall').onclick=()=>{$$('#all canvas').forEach((c,i)=>setTimeout(()=>save(c,`${S.tpl}-${FMT[c.dataset.k][2].toLowerCase()}.png`),i*250));toast('4 images téléchargées')};
+addEventListener('resize',render);
+window.__s=o=>{Object.assign(S,o);if(o.tpl){S.t=[...EX[o.tpl]];sync();$$('#tpls button').forEach(x=>x.classList.toggle('on',x.dataset.t===S.tpl))}if(o.fmt)$$('#fmts button').forEach(x=>x.classList.toggle('on',x.dataset.f===S.fmt));if(o.pal!=null){$$('#pal button').forEach((x,i)=>x.classList.toggle('on',i===S.pal));thumbs()}render()};
+window.__all=openAll;window.__type=async(i,txt)=>{S.t[i]='';for(const ch of txt){S.t[i]+=ch;$('#t'+(i+1)).value=S.t[i];render();await new Promise(r=>setTimeout(r,35))}};
+sync();Promise.all(['800 40px "Bricolage Grotesque"','600 40px Fraunces','italic 500 40px Fraunces','600 20px Inter','500 20px Inter','700 20px Inter','400 20px Inter'].map(f=>document.fonts.load(f))).finally(()=>{render();thumbs()});render();thumbs();
+</script>
+</body>
+</html>

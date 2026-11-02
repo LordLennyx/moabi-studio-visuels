@@ -1,0 +1,23 @@
+{
+ "titre": "<em>Moabi</em> Studio",
+ "type": "Générateur de visuels · réseaux sociaux",
+ "sous_titre": "Modèles, kit de marque, quatre formats, déclinaison automatique, export PNG",
+ "couleur": "#ff5a36",
+ "graine": 38,
+ "voix": [
+  [3.3, "Moabi Studio, des visuels prêts à publier en quelques secondes,"],
+  [8.0, "on choisit un modèle, on écrit, la marque s'applique partout,"],
+  [16.0, "et le même contenu se recompose en story, en bannière et en miniature."]
+ ],
+ "etapes": [
+  {"t": "wait", "ms": 1800},
+  {"t": "eval", "js": "window.__type(1,'-40 % sur le pagne wax')", "pause": 1600},
+  {"t": "eval", "js": "window.__s({pal:2})", "pause": 1300},
+  {"t": "eval", "js": "window.__s({fmt:'story'})", "pause": 1500},
+  {"t": "eval", "js": "window.__s({tpl:'evenement',fmt:'post'})", "pause": 1500},
+  {"t": "eval", "js": "window.__s({tpl:'produit',pal:3})", "pause": 1500},
+  {"t": "eval", "js": "window.__s({tpl:'recrutement',pal:1})", "pause": 1500},
+  {"t": "eval", "js": "window.__s({tpl:'promo',pal:0});window.__all()", "pause": 3600},
+  {"t": "eval", "js": "document.getElementById('cls').click();window.__s({tpl:'chiffre',fmt:'yt'})", "pause": 1800}
+ ]
+}
